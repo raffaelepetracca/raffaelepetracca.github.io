@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo cryptsetup luksOpen /root/$USER-safe.partition $USER-safe || exit
+udisksctl mount --block-device /dev/mapper/$USER-safe
+
+
+

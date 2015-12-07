@@ -1,0 +1,15 @@
+#!/bin/bash
+
+DEVICE_NAME="$USER-safe"
+MAPPED_DEVICE=/dev/mapper/$DEVICE_NAME
+
+if [ $(mount | grep $MAPPED_DEVICE | wc -l) -eq 1 ]; then
+    echo -e "\n\nUnmounting\n\n"
+    udisksctl unmount --block-device $MAPPED_DEVICE
+    if [ $? -ne 0 ]; then 
+        echo -e "\nCANNOT UNMOUNT !!\n"
+        fuser -m /media/$USER/safe/ -v
+        exit 1
+    fi
+fi
+sudo cryptsetup luksClose $DEVICE_NAME
