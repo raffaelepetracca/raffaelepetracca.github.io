@@ -4,12 +4,14 @@ DEVICE_NAME="$USER-safe"
 MAPPED_DEVICE=/dev/mapper/$DEVICE_NAME
 
 if [ $(mount | grep $MAPPED_DEVICE | wc -l) -eq 1 ]; then
-    echo -e "\n\nUnmounting\n\n"
+    echo -e "Unmounting"
     udisksctl unmount --block-device $MAPPED_DEVICE
     if [ $? -ne 0 ]; then 
-        echo -e "\nCANNOT UNMOUNT !!\n"
+        echo -e "CANNOT UNMOUNT !!"
         fuser -m /media/$USER/safe/ -v
         exit 1
     fi
 fi
-sudo cryptsetup luksClose $DEVICE_NAME
+
+echo -e "CLOSING PARTITION"
+sudo cryptsetup luksClose $DEVICE_NAME && echo -e "PARTITION CLOSED"
