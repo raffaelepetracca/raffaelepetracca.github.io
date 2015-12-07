@@ -1,2 +1,2 @@
 # raffaelepetracca.github.io
-- scripts per [Safe Area](safearea/README)
+- Scripts to manage an encrypted area in a file  [Safe Area](safearea/README.md)
