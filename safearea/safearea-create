@@ -21,10 +21,17 @@ SUPPORT_FILE="/root/$USER-safe.partition"
 DEVICE_NAME="$USER-safe"
 MAPPED_DEVICE=/dev/mapper/$DEVICE_NAME
 
+if ! cryptsetup --version; then
+    echo -e "\ncryptsetup not installed\n"
+    exit 1
+fi
+
 if [ -e $MAPPED_DEVICE ]; then
     echo -e "\n$MAPPED_DEVICE already exist\n"
     exit 1
 fi
+
+sudo echo -n || fail
 
 if sudo [ -e $SUPPORT_FILE ]; then
     echo -e "\n$SUPPORT_FILE already exist\n"
