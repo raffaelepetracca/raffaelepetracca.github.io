@@ -59,7 +59,7 @@ function once_done() {
 }
 
 function setTimeZone() {
-    TIME_ZONE=$(timedatectl | grep Timezone)
+    TIME_ZONE=$(timedatectl | egrep 'Time[ ]?zone')
     if [[ $(echo $TIME_ZONE | grep 'Europe/Rome' | wc -l) -eq 0 ]]; then
         echo $TIME_ZONE
         echo "setting time zone to Europe/Rome ..."
@@ -75,7 +75,7 @@ function enable_byobu() {
 
 function ssh_disable_accept_env_and_pwd() {
     sed --in-place 's/^AcceptEnv/#AcceptEnv/' /etc/ssh/sshd_config || fail
-    echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+    echo -e "\n\nPasswordAuthentication no\n" >> /etc/ssh/sshd_config
     service ssh restart || fail
     RECONNECT=1
     once_done
