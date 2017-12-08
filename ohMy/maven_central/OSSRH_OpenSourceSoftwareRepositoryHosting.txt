@@ -1,0 +1,15 @@
+http://central.sonatype.org/pages/apache-maven.html
+
+mvn clean deploy (autoReleaseAfterClose= false)
+mvn nexus-staging:release
+mvn nexus-staging:drop
+
+<settings>
+  <servers>
+    <server>
+      <id>ossrh</id>
+      <username>raffaelepetracca</username>
+      <password> di "issues.sonatype.org" </password>
+    </server>
+  </servers>
+</settings>
