@@ -1,0 +1,7 @@
+#!/bin/sh
+while read LINE
+do
+  PID=$(echo ${LINE} | awk '{print $1}')
+  echo [SKB-OpenWrt-$$-$(date +"%Y-%m-%d-%H:%M:%S")] "Killing PID: -$PID- ($LINE) ....."
+  kill -9 $PID
+done
